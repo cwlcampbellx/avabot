@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatGPT</title>
+  </head>
+  <body>
+    <div id="user-name-container">
+      <label for="user-name">Enter your name:</label>
+      <input type="text" id="user-name" placeholder="Name">
+      <button id="save-name-button">Save</button>
+      <button id="delete-name-button">Delete</button>
+    </div>
+    <div id="api-key-container">
+      <label for="api-key">Enter your API key:</label>
+      <input type="text" id="api-key" placeholder="API Key">
+      <button id="save-api-key-button">Save</button>
+      <button id="delete-api-key-button">Delete</button>
+    </div>
+    <div id="search-container">
+      <label for="search">Enter your text prompt:</label>
+      <input type="text" id="search" placeholder="Text prompt">
+      <button id="send-button">Send</button>
+    </div>
+    <div id="response-container">
+      <textarea id="response" readonly></textarea>
+    </div>
+    <script>
+      // Save user name
+      const saveNameButton = document.getElementById("save-name-button");
+      saveNameButton.addEventListener("click", () => {
+        localStorage.setItem("userName", document.getElementById("user-name").value);
+      });
+      
+      // Delete user name
+      const deleteNameButton = document.getElementById("delete-name-button");
+      deleteNameButton.addEventListener("click", () => {
+        localStorage.removeItem("userName");
+      });
+
+      // Save API key
+      const saveApiKeyButton = document.getElementById("save-api-key-button");
+      saveApiKeyButton.addEventListener("click", () => {
+        localStorage.setItem("apiKey", document.getElementById("api-key").value);
+      });
+
+      // Delete API key
+      const deleteApiKeyButton = document.getElementById("delete-api-key-button");
+      deleteApiKeyButton.addEventListener("click", () => {
+        localStorage.removeItem("apiKey");
+      });
+
+      // Send request to OpenAI API
+      const sendButton = document.getElementById("send-button");
+      sendButton.addEventListener("click", () => {
+        const userName = localStorage.getItem("userName");
+        const apiKey = localStorage.getItem("apiKey");
+        const prompt = document.getElementById("search").value;
+
+        if (!apiKey) {
+          alert("Please enter your API key");
+          return;
+        }
+
+        // Create the request body
+        const requestBody = JSON.stringify({
+          prompt: userName ? `My name is ${userName}. ${
