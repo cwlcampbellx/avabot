@@ -1,24 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Random Sound Player</title>
-</head>
-<body onload="playRandomSound()">
+body {
+    font-family: Arial, sans-serif;
+}
 
-<script>
-  var audioFiles = [
-    "samjackson.wav",
-    "sound2.wav",
-    "sound3.wav",
-    "sound4.wav"
-  ];
+header h1 {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 10px;
+}
 
-  function playRandomSound() {
-    var randomIndex = Math.floor(Math.random() * audioFiles.length);
-    var audio = new Audio(audioFiles[randomIndex]);
-    audio.play();
-  }
-</script>
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+}
 
-</body>
-</html>
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+section {
+    width: 30%;
+    margin: 20px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+}
