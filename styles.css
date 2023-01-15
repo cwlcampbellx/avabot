@@ -22,4 +22,9 @@ input, textarea {
 
 button {
   padding: 5px 10px;
-  margin
+  margin-bottom: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

@@ -1,0 +1,58 @@
+var userName = "";
+var apiKey = "";
+
+document.getElementById("save-name-button").addEventListener("click", function() {
+  userName = document.getElementById("user-name").value;
+});
+
+document.getElementById("delete-name-button").addEventListener("click", function() {
+  userName = "";
+  document.getElementById("user-name").value = "";
+});
+
+document.getElementById("save-api-key-button").addEventListener("click", function() {
+  apiKey = document.getElementById("api-key").value;
+});
+
+document.getElementById("delete-api-key-button").addEventListener("click", function() {
+  apiKey = "";
+  document.getElementById("api-key").value = "";
+});
+
+document.getElementById("search").onkeydown = function(event) {
+  if (event.key === "Enter") {
+    sendRequest();
+  }
+};
+
+document.getElementById("send-button").addEventListener("click", sendRequest);
+
+function sendRequest() {
+  if (!apiKey) {
+    alert("Please enter your API key and save it before sending a request.");
+    return;
+  }
+
+  var text = document.getElementById("search").value;
+  if (userName) {
+    text = "My name is " + userName + " " + text;
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "https://api.openai.com/v1/engines/davinci/completions");
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("Authorization", "Bearer " + apiKey);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var response = JSON.parse(xhr.responseText);
+      document.getElementById("response").value = response.choices[0].text;
+    }
+  };
+
+  var data = JSON.stringify({
+    prompt: text,
+    temperature: 0.5
+  });
+  xhr.send(data);
+}
