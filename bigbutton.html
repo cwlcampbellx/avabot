@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chatbot Pop-up</title>
+  <style>
+    /* Set the body to the iPhone 10 screen dimensions */
+    body {
+      margin: 0;
+      width: 375px;
+      height: 812px;
+    }
+    /* Style the button to take up the entire screen */
+    button {
+      width: 100%;
+      height: 100%;
+      font-size: 40px;
+      background-color: blue;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <button id="open-chatbot-button">Open Chatbot</button>
+
+  <script>
+    var openChatbotButton = document.getElementById("open-chatbot-button");
+
+    openChatbotButton.addEventListener("click", function() {
+      var chatbotUrl = "https://c.ai/c/dSo0so5PT_NJXK_QgWOr_V8Gz461c6n-BQdRvS1qjhc";
+      var windowOptions = "width=375,height=812";
+      window.open(chatbotUrl, "Chatbot", windowOptions);
+    });
+  </script>
+</body>
+</html>
