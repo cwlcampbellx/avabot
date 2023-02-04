@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>OpenAI Chat Bot</title>
+  </head>
+  <body>
+    <div id="chatbot-container">
+      <form id="chatbot-form">
+        <input type="text" id="chatbot-input" placeholder="Ask the OpenAI Chat Bot">
+        <button type="submit">Submit</button>
+      </form>
+      <div id="chatbot-response"></div>
+    </div>
+    
+    <script>
+      const API_KEY = "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";
+      const chatbotForm = document.getElementById("chatbot-form");
+      const chatbotInput = document.getElementById("chatbot-input");
+      const chatbotResponse = document.getElementById("chatbot-response");
+      
+      const data = {
+        messages: []
+      };
+      
+      chatbotForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const query = chatbotInput.value;
+        chatbotInput.value = "";
+        data.messages.push({
+          user: query
+        });
+        fetch(`https://api.openai.com/v1/engines/davinci/jobs`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            prompt: query + " answer like you are in a Shakespeare play, speak old English",
+            max_tokens: 100
+          })
+        })
+        .then((res) => res.json())
+        .then((resData) => {
+          const response = resData.choices[0].text;
+          data.messages.push({
+            bot: response
+          });
+          chatbotResponse.innerHTML = response;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      });
+    </script>
+  </body>
+</html>
